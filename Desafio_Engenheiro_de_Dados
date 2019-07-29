@@ -1,0 +1,26 @@
+Teste Semantix
+
+Qual o objetivo do comando cache em Spark?
+R: O objetivo do comando cache é para armazenar os dados em memoria dentro de um determinada variável e poder utilizar em outro momento dentro do seu código.
+
+O mesmo código implementado em Spark é normalmente mais rápido que a implementação equivalente em MapReduce. Por quê?
+Sim. Apesar de ambos trabalharem em lotes o Spark consegue processar seus dados rapidamente, enquanto o MapReduce demora um pouco mais. O MapReduce processa em discos e acaba consumindo muito da JVM enquanto o Spark consegue persistir os dados em memória com isso possibilitando a implementação mais rápida.
+
+Qual é a função do SparkContext?
+R: O SparkContext serve para utilizar os métodos do spark, assim como:  RDD, execução de jobs spark, determinar quantidade de executores.
+
+Explique com suas palavras  o que é Resilient Distributed Datasets (RDD).
+R: RDD é a maneira que o spark transforma e consegue ler os dados, podendo transformar dados existente em outros e o mesmo só vai executar se executa-lo, ele pode ser persistido em disco ou replicar em vários nós.
+
+GroupByKey é menos eficiente que reduceByKey em grandes dataset. Por quê?
+R: Sim,  o groupByKey e o reduceByKey são utilizados para juntar datasets porem o groupByKey pode ter alguns problemas quando os dados são processados em disco e enviados para serem transformados, no  reduceByKey são combinados atraves de partições e combina todos os valores em outros valores exatamente com o mesmo tipo.
+
+Explique o que o código Scala abaixo faz.
+
+val textFile = sc.textFile("hdfs://...")
+	val counts = textFile.flatMap(line => line.split(" "))
+	.map(word=>(word,1))
+	.reduceByKey(_+_)
+counts.saveAsTextFile("hdfs://...")
+
+Neste código, ele está atribuindo a variável textFile em um arquivo que texto que foi referenciado, logo após ele utilizada a função flatMap para pegar os campos que contem espaço e transforma em uma lista. Utiliza o map para acessar cada campo da lista e receber o valor 1.  Depois utiliza o reduceByKey para diminuir os campo repetidos. Na ultima linha ele pega a variável counts com o resultado da contagem e salva em um arquivo texto dentro do HDFS.
